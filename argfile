@@ -1,4 +1,4 @@
-Download new data::No, Yes
+Download new data::No
 From::2019-03-11
 To::2020-02-09
 Buy criterium (%)::0.566
@@ -6,7 +6,7 @@ Sell criterium (%)::25
 Moving average S (days)::33
 Moving average L (days)::189
 Backup file::quotes_bk.csv
-Mode::Monitor, Trade MA, Trade LINEAR, Trade UPDOWN
+Mode::Monitor
 Trend length (days)::20
 Command file::input_data_file
 Non python executable::calc

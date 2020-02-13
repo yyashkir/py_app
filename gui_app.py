@@ -1,4 +1,6 @@
 # 'Copyright © 2020 YASHKIR CONSULTING'
+from typing import List
+
 from pandas_datareader import data
 import time
 import datetime
@@ -20,11 +22,11 @@ from PIL import Image
 
 
 def run_code(k, pars):
-    arg = str(pars[k - 2].get())    # if non-py executable does not need argument this field must be empty
     exe = str(pars[k - 1].get())
     if exe != '':                   # if non-py executable name is available
         messagebox.showinfo("START", 'Process starts, wait until the end')
-        os.system(exe + ' ' + arg)
+        argument=save_arg_file(pars)
+        os.system(exe + ' ' + argument)
         return (0)
     messagebox.showinfo("START", 'Process starts, wait until next message')
     ##body of py application, py code insert here
@@ -32,6 +34,19 @@ def run_code(k, pars):
     print('Done running')
     return (0)
 
+def save_arg_file(pars):
+    arg_file = 'argfile'
+    menu_length = len(menu_names)
+    f = open(arg_file, 'w')
+    for j in range(menu_length):
+        f.write(str(menu_names[j]) + delimiter)
+        s = menu_values[j][0]
+        s = pars[j].get()
+        f.write(str(s))
+        if (j <= menu_length - 2):
+            f.write('\n')
+    f.close()
+    return (arg_file)
 
 def save_command_file(menu_names, menu_values, menu_file, k, pars):
     new_file = str(pars[k - 2].get())
@@ -69,7 +84,10 @@ def read_menu_conf(mfile, delimiter):
         tokens = line.strip().split(delimiter)
         names.append(tokens[0])
         values.append(tokens[1])
-    values_list = []
+    values_list: List[List[str]] = []
+    print(values)
+    print(len(values))
+    print("yy")
     for k in range(len(values)):
         values_list.append(values[k].split(','))
     f.close()
